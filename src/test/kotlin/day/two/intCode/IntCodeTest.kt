@@ -7,10 +7,23 @@ import org.spekframework.spek2.style.specification.describe
 
 object IntCodeTest : Spek({
     describe("intCode()") {
-        val input = listOf(99, 1, 2, 3)
 
-        it("should return list when position 0 is 99") {
+        it("should return list when opCode is 99") {
+            val input = listOf(99, 1, 2, 3)
+
             assertThat(intCode(input)).isEqualTo(input)
+        }
+
+        it ("should add values at 2 positions and replace in 3rd position when opCode is 1") {
+            val input = listOf(1, 3, 1, 2)
+
+            assertThat(intCode(input)).isEqualTo(listOf(1, 3, 5, 2))
+        }
+
+        it ("should multiply values at 2 positions and replace in 3rd position when opCode is 2") {
+            val input = listOf(2, 3, 1, 2)
+
+            assertThat(intCode(input)).isEqualTo(listOf(2, 3, 6, 2))
         }
     }
 })
