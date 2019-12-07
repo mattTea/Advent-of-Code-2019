@@ -1,4 +1,4 @@
-package day.one
+package day.one.fuelCalculator
 
 import kotlin.math.floor
 

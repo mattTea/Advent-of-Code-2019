@@ -1,4 +1,4 @@
-package day.one
+package day.one.fuelCalculator
 
 import assertk.assertThat
 import assertk.assertions.isEqualTo

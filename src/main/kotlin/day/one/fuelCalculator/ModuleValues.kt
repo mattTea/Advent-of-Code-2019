@@ -1,4 +1,4 @@
-package day.one
+package day.one.fuelCalculator
 
 val modules = listOf(
     119606,
