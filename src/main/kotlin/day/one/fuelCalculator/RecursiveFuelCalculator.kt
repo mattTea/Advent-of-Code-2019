@@ -22,14 +22,3 @@ fun recursivelyCalculateTotalFuel(moduleValues: List<Int>): Int {
 fun main() {
     println(recursivelyCalculateTotalFuel(modules))
 }
-
-
-/*
-
-a value ->
-
-total fuel required for a module of mass 1969 is 654 + 216 + 70 + 21 + 5 = 966
-
-firstPass = calcPerModule(moduleValue) ->  if (calcPerModule(firstPass) > 0) ->
-
-*/

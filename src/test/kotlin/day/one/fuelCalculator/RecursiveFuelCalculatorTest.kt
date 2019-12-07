@@ -24,11 +24,11 @@ object RecursiveCalculatorTest : Spek({
         }
     }
 
-//    describe("calculateTotalFuel()") {
-//        val moduleValues = listOf(12, 1969, 14)
-//
-//        it("should add together all fuel amounts") {
-//            assertThat(recursivelyCalculateTotalFuel(moduleValues)).isEqualTo(658)
-//        }
-//    }
+    describe("calculateTotalFuel()") {
+        val moduleValues = listOf(12, 216, 1969)
+
+        it("should add together all fuel amounts") {
+            assertThat(recursivelyCalculateTotalFuel(moduleValues)).isEqualTo(1064)
+        }
+    }
 })
