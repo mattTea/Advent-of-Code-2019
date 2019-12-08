@@ -11,19 +11,25 @@ object IntCodeTest : Spek({
         it("should return list when opCode is 99") {
             val input = listOf(99, 1, 2, 3)
 
-            assertThat(intCode(input)).isEqualTo(input)
+            assertThat(intCode(input, 0)).isEqualTo(input)
         }
 
         it ("should add values at 2 positions and replace in 3rd position when opCode is 1") {
             val input = listOf(1, 3, 1, 2)
 
-            assertThat(intCode(input)).isEqualTo(listOf(1, 3, 5, 2))
+            assertThat(intCode(input, 0)).isEqualTo(listOf(1, 3, 5, 2))
         }
 
         it ("should multiply values at 2 positions and replace in 3rd position when opCode is 2") {
             val input = listOf(2, 3, 1, 2)
 
-            assertThat(intCode(input)).isEqualTo(listOf(2, 3, 6, 2))
+            assertThat(intCode(input, 0)).isEqualTo(listOf(2, 3, 6, 2))
+        }
+
+        it("should move 4 positions to calculate the next opCode") {
+            val input = listOf(1, 3, 1, 2, 1, 3, 1, 6, 99)
+
+            assertThat(runIntCodeProgram(input)).isEqualTo(listOf(1, 3, 5, 2, 1, 3, 5, 6, 99))
         }
     }
 })
