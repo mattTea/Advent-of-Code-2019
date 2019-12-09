@@ -85,11 +85,11 @@ Find the input noun and verb that cause the program to produce the output 196907
         val valueAtAddressZero = 19690720
 
         it("should return a list") {
-            assertThat(nounAndVerbFor(originalPuzzleInput, valueAtAddressZero)).isInstanceOf(List::class.java)
+            assertThat(nounAndVerbFor(restoredPuzzleInput, valueAtAddressZero)).isInstanceOf(List::class.java)
         }
 
         it("should return list of size 2") {
-            assertThat(nounAndVerbFor(originalPuzzleInput, valueAtAddressZero).size).isEqualTo(2)
+            assertThat(nounAndVerbFor(restoredPuzzleInput, valueAtAddressZero).size).isEqualTo(2)
         }
     }
 
