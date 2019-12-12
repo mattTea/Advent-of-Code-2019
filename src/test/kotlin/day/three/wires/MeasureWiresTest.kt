@@ -7,8 +7,20 @@ import org.spekframework.spek2.style.specification.describe
 
 object MeasureWiresTest : Spek({
     describe("plotWire()") {
-        it("should add together 2 points on a grid") {
-            assertThat(plotWire("R2")).isEqualTo(Point(0, 2))
+        it("should plot to a point using R instruction") {
+            assertThat(plotWire("R2")).isEqualTo(Point(2, 0))
+        }
+
+        it("should plot to a point using L instruction") {
+            assertThat(plotWire("L3")).isEqualTo(Point(-3, 0))
+        }
+
+        it("should plot to a point using U instruction") {
+            assertThat(plotWire("U4")).isEqualTo(Point(0, 4))
+        }
+
+        it("should plot to a point using D instruction") {
+            assertThat(plotWire("D15")).isEqualTo(Point(0, -15))
         }
     }
 })
