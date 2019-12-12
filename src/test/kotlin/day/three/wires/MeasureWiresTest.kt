@@ -6,12 +6,9 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 object MeasureWiresTest : Spek({
-    describe("track co-ordinates") {
+    describe("plotWire()") {
         it("should add together 2 points on a grid") {
-            val startingPoint = Point(0, 0)
-            val finishingPoint = Point(2, 0)
-
-            assertThat(plotWire(startingPoint, finishingPoint)).isEqualTo(Point(2, 0))
+            assertThat(plotWire("R2")).isEqualTo(Point(0, 2))
         }
     }
 })
