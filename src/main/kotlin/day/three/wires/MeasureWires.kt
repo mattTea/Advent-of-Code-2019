@@ -1,15 +1,30 @@
 package day.three.wires
 
+import kotlin.math.abs
+
 typealias Point = Pair<Int, Int>
+
+
+
+fun main() {
+    val crossPoint = crossingPoint(firstWireInstructions, secondWireInstructions)
+    println("Nearest wire crossing to start point is: $crossPoint")
+
+    val manhattan = crossPoint.first + crossPoint.second
+    println("The Manhattan distance of this point is: $manhattan")
+}
 
 fun crossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
     val firstWire = plotWire(firstWireInstructions).minus(Point(0, 0))
     val secondWire = plotWire(secondWireInstructions).minus(Point(0, 0))
 
     val crossingPoints = firstWire.intersect(secondWire).toList()
-    return crossingPoints.first()
 
-    // need to find the Point with the lowest combined coordinates from crossingPoints
+    val measures = crossingPoints.mapIndexed {index, point ->
+        Pair(abs(point.first) + abs(point.second), index)
+    }.sortedBy { it.first }
+
+    return crossingPoints[measures[0].second]
 }
 
 fun plotWire(instructions: List<String>): List<Point> {
