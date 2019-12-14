@@ -61,18 +61,14 @@ object MeasureWiresTest : Spek({
 
             assertThat(plotWire(instructions)).isEqualTo(pathPoints)
         }
+
+        it("should return point where wires cross") {
+//            val firstWire = listOf(Point(0, 0), Point(1, 0), Point(1, 1), Point(1, 2))
+//            val secondWire = listOf(Point(0, 0), Point(0, 1), Point(1, 1), Point(2, 1))
+            val firstWire = listOf("R1", "U2")
+            val secondWire = listOf("U1", "R2")
+
+            assertThat(crossingPoint(firstWire, secondWire)).isEqualTo(Point(1, 1))
+        }
     }
 })
-
-/*
-
-1. Add together 2 coordinates
-2. Draw line between 2 coordinates
-    - Keep track of where started and where ended
-
-    - record every point it goes through
-
-3. Draw line between 3 coordinates
-    - Keep track of where been?
-
-*/

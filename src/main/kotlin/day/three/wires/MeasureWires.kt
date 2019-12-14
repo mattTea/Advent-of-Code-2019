@@ -2,6 +2,16 @@ package day.three.wires
 
 typealias Point = Pair<Int, Int>
 
+fun crossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
+    val firstWire = plotWire(firstWireInstructions).minus(Point(0, 0))
+    val secondWire = plotWire(secondWireInstructions).minus(Point(0, 0))
+
+    val crossingPoints = firstWire.intersect(secondWire).toList()
+    return crossingPoints.first()
+
+    // need to find the Point with the lowest combined coordinates from crossingPoints
+}
+
 fun plotWire(instructions: List<String>): List<Point> {
     var start = Point(0, 0)
     lateinit var end: Point
