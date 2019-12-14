@@ -2,13 +2,17 @@ package day.three.wires
 
 typealias Point = Pair<Int, Int>
 
-fun plotWire(instruction: String): List<Point> {
-    val start = Point(0, 0)
-    val end = start.plot(calculatePoint(instruction))
+fun plotWire(instructions: List<String>): List<Point> {
+    var start = Point(0, 0)
+    lateinit var end: Point
 
     val path = mutableListOf(Point(0, 0))
 
-    path += capturePath(instruction, start, end)
+    for (instruction in instructions) {
+        end = start.plot(calculatePoint(instruction))
+        path += capturePath(instructions, start, end)
+        start = end
+    }
 
     return path.distinct()
 }
@@ -27,14 +31,16 @@ private fun calculatePoint(instruction: String): Point {
     }
 }
 
-private fun capturePath(instruction: String, start: Pair<Int, Int>, end: Pair<Int, Int>): MutableList<Point> {
+private fun capturePath(instructions: List<String>, start: Pair<Int, Int>, end: Pair<Int, Int>): MutableList<Point> {
     val pathPoints = mutableListOf(Point(0, 0))
 
-    when (instruction.first()) {
-        'R' -> pathPoints += rightPath(start, end)
-        'L' -> pathPoints += leftPath(start, end)
-        'U' -> pathPoints += upPath(start, end)
-        'D' -> pathPoints += downPath(start, end)
+    for (instruction in instructions) {
+        when (instruction.first()) {
+            'R' -> pathPoints += rightPath(start, end)
+            'L' -> pathPoints += leftPath(start, end)
+            'U' -> pathPoints += upPath(start, end)
+            'D' -> pathPoints += downPath(start, end)
+        }
     }
 
     return pathPoints

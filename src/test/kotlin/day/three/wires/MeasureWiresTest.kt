@@ -9,23 +9,57 @@ import org.spekframework.spek2.style.specification.describe
 object MeasureWiresTest : Spek({
     describe("plotWire()") {
         it("should plot to a point using R instruction") {
-            assertThat(plotWire("R2")).contains(Point(2, 0))
+            assertThat(plotWire(listOf("R2"))).contains(Point(2, 0))
         }
 
         it("should plot to a point using L instruction") {
-            assertThat(plotWire("L3")).contains(Point(-3, 0))
+            assertThat(plotWire(listOf("L3"))).contains(Point(-3, 0))
         }
 
         it("should plot to a point using U instruction") {
-            assertThat(plotWire("U4")).contains(Point(0, 4))
+            assertThat(plotWire(listOf("U4"))).contains(Point(0, 4))
         }
 
         it("should plot to a point using D instruction") {
-            assertThat(plotWire("D15")).contains(Point(0, -15))
+            assertThat(plotWire(listOf("D15"))).contains(Point(0, -15))
         }
 
-        it("should record the 2 points that plot passes through") {
-            assertThat(plotWire("R2")).isEqualTo(listOf(Point(0, 0), Point(1, 0), Point(2, 0)))
+        it("should record the 2 (R) points that plot passes through") {
+            assertThat(plotWire(listOf("R2"))).isEqualTo(listOf(Point(0, 0), Point(1, 0), Point(2, 0)))
+        }
+
+        it("should record the 2 (L) points that plot passes through") {
+            assertThat(plotWire(listOf("L2"))).isEqualTo(listOf(Point(0, 0), Point(-1, 0), Point(-2, 0)))
+        }
+
+        it("should record the 2 (U) points that plot passes through") {
+            assertThat(plotWire(listOf("U2"))).isEqualTo(listOf(Point(0, 0), Point(0, 1), Point(0, 2)))
+        }
+
+        it("should record the 2 (D) points that plot passes through") {
+            assertThat(plotWire(listOf("D2"))).isEqualTo(listOf(Point(0, 0), Point(0, -1), Point(0, -2)))
+        }
+
+        it("should record points passed through for 2 instructions") {
+            assertThat(plotWire(listOf("R1", "U1"))).isEqualTo(listOf(Point(0, 0), Point(1, 0), Point(1, 1)))
+        }
+
+        it("should record points passed through for 4 instructions") {
+            val instructions = listOf("R2", "U3", "L2", "D1")
+
+            val pathPoints = listOf(
+                Point(0, 0),
+                Point(1, 0),
+                Point(2, 0),
+                Point(2, 1),
+                Point(2, 2),
+                Point(2, 3),
+                Point(1, 3),
+                Point(0, 3),
+                Point(0, 2)
+            )
+
+            assertThat(plotWire(instructions)).isEqualTo(pathPoints)
         }
     }
 })
