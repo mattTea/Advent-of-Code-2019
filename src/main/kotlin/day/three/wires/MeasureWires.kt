@@ -4,19 +4,41 @@ import kotlin.math.abs
 
 typealias Point = Pair<Int, Int>
 
-// Part 1
-fun main() {
-    val crossPoint = closestCrossingPoint(firstWireInstructions, secondWireInstructions)
-    println("Nearest wire crossing to start point is: $crossPoint")
 
-    val manhattan = crossPoint.first + crossPoint.second
+fun main() {
+    // Part 1
+    println("---- Part 1 ----")
+    val manhattanCrossPoint = closestManhattanCrossingPoint(firstWireInstructions, secondWireInstructions)
+    println("Nearest wire crossing to start point is: $manhattanCrossPoint")
+
+    val manhattan = manhattanCrossPoint.first + manhattanCrossPoint.second
     println("The Manhattan distance of this point is: $manhattan")
+
+    // Part 2
+    println("---- Part 2 ----")
+    val distanceCrossPoint = closestDistanceCrossingPoint(firstWireInstructions, secondWireInstructions)
+    println("Nearest wire crossing point by distance travelled is: ${distanceCrossPoint.first}")
+    println("The distance in steps to this point is: ${distanceCrossPoint.second}")
 }
 
-// Part 2
+fun closestDistanceCrossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Pair<Point, Int> {
+    val crossingPoints = crossingPoints(firstWireInstructions, secondWireInstructions)
 
+    val firstWire = plotWire(firstWireInstructions).minus(Point(0, 0))
+    val secondWire = plotWire(secondWireInstructions).minus(Point(0, 0))
+    val pointsAndDistances = mutableListOf<Pair<Point, Int>>()
 
-fun closestCrossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
+    for (point in crossingPoints) {
+        val distance = (firstWire.indexOf(point) + 1) + (secondWire.indexOf(point) + 1)
+        pointsAndDistances.add(Pair(point, distance))
+    }
+
+    val pointsSortedByDistance = pointsAndDistances.sortedBy { it.second }
+    println(pointsSortedByDistance)
+    return pointsSortedByDistance[0]
+}
+
+fun closestManhattanCrossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
     val crossingPoints = crossingPoints(firstWireInstructions, secondWireInstructions)
 
     val measures = crossingPoints.mapIndexed { index, point ->
