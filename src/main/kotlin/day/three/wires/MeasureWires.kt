@@ -4,27 +4,33 @@ import kotlin.math.abs
 
 typealias Point = Pair<Int, Int>
 
-
-
+// Part 1
 fun main() {
-    val crossPoint = crossingPoint(firstWireInstructions, secondWireInstructions)
+    val crossPoint = closestCrossingPoint(firstWireInstructions, secondWireInstructions)
     println("Nearest wire crossing to start point is: $crossPoint")
 
     val manhattan = crossPoint.first + crossPoint.second
     println("The Manhattan distance of this point is: $manhattan")
 }
 
-fun crossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
-    val firstWire = plotWire(firstWireInstructions).minus(Point(0, 0))
-    val secondWire = plotWire(secondWireInstructions).minus(Point(0, 0))
+// Part 2
 
-    val crossingPoints = firstWire.intersect(secondWire).toList()
 
-    val measures = crossingPoints.mapIndexed {index, point ->
+fun closestCrossingPoint(firstWireInstructions: List<String>, secondWireInstructions: List<String>): Point {
+    val crossingPoints = crossingPoints(firstWireInstructions, secondWireInstructions)
+
+    val measures = crossingPoints.mapIndexed { index, point ->
         Pair(abs(point.first) + abs(point.second), index)
     }.sortedBy { it.first }
 
     return crossingPoints[measures[0].second]
+}
+
+fun crossingPoints(firstWireInstructions: List<String>, secondWireInstructions: List<String>): List<Point> {
+    val firstWire = plotWire(firstWireInstructions).minus(Point(0, 0))
+    val secondWire = plotWire(secondWireInstructions).minus(Point(0, 0))
+
+    return firstWire.intersect(secondWire).toList()
 }
 
 fun plotWire(instructions: List<String>): List<Point> {

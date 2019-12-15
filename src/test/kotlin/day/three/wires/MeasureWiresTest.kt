@@ -66,14 +66,14 @@ object MeasureWiresTest : Spek({
             val firstWire = listOf("R1", "U2")
             val secondWire = listOf("U1", "R2")
 
-            assertThat(crossingPoint(firstWire, secondWire)).isEqualTo(Point(1, 1))
+            assertThat(closestCrossingPoint(firstWire, secondWire)).isEqualTo(Point(1, 1))
         }
 
         it("should return closest point where wires cross") {
             val firstWire = listOf("R1", "U2", "R2")
             val secondWire = listOf("U1", "R2", "U2")
 
-            assertThat(crossingPoint(firstWire, secondWire)).isEqualTo(Point(1, 1))
+            assertThat(closestCrossingPoint(firstWire, secondWire)).isEqualTo(Point(1, 1))
         }
     }
 })
