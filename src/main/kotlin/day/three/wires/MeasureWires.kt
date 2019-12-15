@@ -1,5 +1,6 @@
 package day.three.wires
 
+import java.security.InvalidParameterException
 import kotlin.math.abs
 
 typealias Point = Pair<Int, Int>
@@ -34,7 +35,6 @@ fun closestDistanceCrossingPoint(firstWireInstructions: List<String>, secondWire
     }
 
     val pointsSortedByDistance = pointsAndDistances.sortedBy { it.second }
-    println(pointsSortedByDistance)
     return pointsSortedByDistance[0]
 }
 
@@ -67,25 +67,27 @@ fun plotWire(instructions: List<String>): List<Point> {
         start = end
     }
 
-    return path.distinct()
+    return path
 }
 
 private fun Point.plot(end: Point): Point {
     return Point(this.first + end.first, this.second + end.second)
 }
 
+// Convert an instruction to a co-ordinate
 private fun calculatePoint(instruction: String): Point {
     return when (instruction.first()) {
-        'R' -> Point(instruction.drop(1).toInt(), 0)
+        'R' -> Point(instruction.drop(1).toInt(), 0) // "R7" -> Point(7, 0)
         'L' -> Point(-instruction.drop(1).toInt(), 0)
         'U' -> Point(0, instruction.drop(1).toInt())
         'D' -> Point(0, -instruction.drop(1).toInt())
-        else -> Point(0, 0)
+        else -> throw InvalidParameterException("Instructions must start with R, L, U or D")
     }
 }
 
+// Lists all co-ordinates that are passed on wire's path
 private fun capturePath(instructions: List<String>, start: Pair<Int, Int>, end: Pair<Int, Int>): MutableList<Point> {
-    val pathPoints = mutableListOf(Point(0, 0))
+    val pathPoints = mutableListOf<Point>()
 
     for (instruction in instructions) {
         when (instruction.first()) {
@@ -96,13 +98,13 @@ private fun capturePath(instructions: List<String>, start: Pair<Int, Int>, end: 
         }
     }
 
-    return pathPoints
+    return pathPoints.distinct().toMutableList()
 }
 
 private fun rightPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
-    val path = mutableListOf(Point(0, 0))
+    val path = mutableListOf<Point>()
 
-    for (coordinate in start.first..end.first) {
+    for (coordinate in (start.first + 1)..end.first) {
         path.add(Point(coordinate, start.second))
     }
 
@@ -110,9 +112,9 @@ private fun rightPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
 }
 
 private fun leftPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
-    val path = mutableListOf(Point(0, 0))
+    val path = mutableListOf<Point>()
 
-    for (coordinate in start.first downTo end.first) {
+    for (coordinate in (start.first - 1) downTo end.first) {
         path.add(Point(coordinate, start.second))
     }
 
@@ -120,9 +122,9 @@ private fun leftPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
 }
 
 private fun upPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
-    val path = mutableListOf(Point(0, 0))
+    val path = mutableListOf<Point>()
 
-    for (coordinate in start.second..end.second) {
+    for (coordinate in (start.second + 1)..end.second) {
         path.add(Point(start.first, coordinate))
     }
 
@@ -130,9 +132,9 @@ private fun upPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
 }
 
 private fun downPath(start: Pair<Int, Int>, end: Pair<Int, Int>): List<Point> {
-    val path = mutableListOf(Point(0, 0))
+    val path = mutableListOf<Point>()
 
-    for (coordinate in start.second downTo end.second) {
+    for (coordinate in (start.second - 1) downTo end.second) {
         path.add(Point(start.first, coordinate))
     }
 
