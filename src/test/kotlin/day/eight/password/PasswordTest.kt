@@ -6,11 +6,19 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 object PasswordTest : Spek({
+    val input = "112340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234"
+
     describe("layerWithfewestZerosIn()") {
         it("should return number of zeros in first layer") {
-            val input = "112340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234012340123401234"
+            assertThat(layerWithFewestZerosIn(input, 5)).isEqualTo(1)
+        }
+    }
 
-            assertThat(layerWithFewestZerosIn(input)).isEqualTo(1)
+    describe("numberOf1sMultipliedByNumberOf2s()") {
+        it("should return number of 1s multipled by number of 2s in layer") {
+            val layer = listOf(1, 1, 2, 3, 4)
+
+            assertThat(numberOf1sMultipliedByNumberOf2s(layer)).isEqualTo(2)
         }
     }
 })
