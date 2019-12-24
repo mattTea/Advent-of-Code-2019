@@ -13,14 +13,27 @@ fun main() {
     println("Part 2.")
     println("---------------")
 
+
 }
 
-fun decode(input: String, chunkSize: Int = 150): List<Int> {
-    return listOfIntsFrom(input)
+fun decode(input: String, layerChunkSize: Int = 150, imagePixelWidth: Int = 25): List<Int> {
+    val layersWithIntValues = input.chunked(layerChunkSize).map { listOfIntsFrom(it) }
+
+    var layerIndex = 0
+    val decodedLayer = layersWithIntValues[0].toMutableList()
+
+    decodedLayer.forEachIndexed { index, element ->
+        if (element == 2) {
+            decodedLayer[index] = layersWithIntValues[layerIndex + 1][index]
+            if (layerIndex > layersWithIntValues.size - 1) layerIndex += 1
+        }
+    }
+
+    return decodedLayer
 }
 
-fun layerWithFewestZerosIn(input: String, chunkSize: Int = 150): Int {
-    val layers = input.chunked(chunkSize)
+fun layerWithFewestZerosIn(input: String, layerChunkSize: Int = 150): Int {
+    val layers = input.chunked(layerChunkSize)
     val zeroCount = mutableListOf<Int>()
 
     layers.map {

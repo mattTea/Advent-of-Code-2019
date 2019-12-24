@@ -5,8 +5,6 @@ import assertk.assertions.isEqualTo
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-
-
 object PasswordTest : Spek({
     /*
 Part 1
@@ -80,10 +78,17 @@ the final image would have a black pixel at that position.
     describe("Part 2") {
         describe("decode()") {
             it("should print a single layer grid") {
-                val input = "0222"
-                val decodedImage = listOf(0,2,2,2)
+                val input = "0111"
+                val decodedImage = listOf(0,1,1,1)
 
                 assertThat(decode(input)).isEqualTo(decodedImage)
+            }
+
+            it("should print correct values for 2 layer grid") {
+                val input = "01221001"
+                val decodedImage = listOf(0,1,0,1)
+
+                assertThat(decode(input, 4, 2)).isEqualTo(decodedImage)
             }
         }
     }
