@@ -3,17 +3,27 @@ package day.eight.password
 fun main() {
     // Part 1
     println("Part 1.")
-    println("---------------")
+    println("-------")
     val layerValues = encodedPassword.chunked(150)[layerWithFewestZerosIn(encodedPassword) - 1]
     val layerIntValues = listOfIntsFrom(layerValues)
 
     println(numberOf1sMultipliedByNumberOf2s(layerIntValues))
+    println("---------------")
+    println("")
 
     // Part 2
     println("Part 2.")
-    println("---------------")
+    println("-------")
 
+    val decodedTopLayer = decode(encodedPassword)
 
+    // print each element in decodedTopLayer, split at imagePixelWidth
+//    println(decodedTopLayer[0]..decodedTopLayer[24])
+//    println(decodedTopLayer[25]..decodedTopLayer[49])
+//    println(decodedTopLayer[50]..decodedTopLayer[74])
+//    println(decodedTopLayer[75]..decodedTopLayer[99])
+//    println(decodedTopLayer[100]..decodedTopLayer[124])
+//    println(decodedTopLayer[125]..decodedTopLayer[149])
 }
 
 fun decode(input: String, layerChunkSize: Int = 150, imagePixelWidth: Int = 25): List<Int> {
@@ -22,13 +32,14 @@ fun decode(input: String, layerChunkSize: Int = 150, imagePixelWidth: Int = 25):
     var layerIndex = 0
     val decodedLayer = layersWithIntValues[0].toMutableList()
 
-    decodedLayer.forEachIndexed { index, element ->
-        if (element == 2) {
-            decodedLayer[index] = layersWithIntValues[layerIndex + 1][index]
-            if (layerIndex > layersWithIntValues.size - 1) layerIndex += 1
+    while (layerIndex < layersWithIntValues.size - 1) {
+        decodedLayer.forEachIndexed { index, element ->
+            if (element == 2) {
+                decodedLayer[index] = layersWithIntValues[layerIndex + 1][index]
+            }
         }
+        layerIndex += 1
     }
-
     return decodedLayer
 }
 
@@ -45,7 +56,7 @@ fun layerWithFewestZerosIn(input: String, layerChunkSize: Int = 150): Int {
 
 fun numberOf1sMultipliedByNumberOf2s(layer: List<Int>): Int {
     val ones = layer.count { it == 1 }
-    val twos = layer.count {it == 2}
+    val twos = layer.count { it == 2 }
 
     return ones * twos
 }

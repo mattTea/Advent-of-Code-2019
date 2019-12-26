@@ -90,6 +90,13 @@ the final image would have a black pixel at that position.
 
                 assertThat(decode(input, 4, 2)).isEqualTo(decodedImage)
             }
+
+            it("should print correct values for a 3 layer grid") {
+                val input = "012222221001"
+                val decodedImage = listOf(0,1,0,1)
+
+                assertThat(decode(input, 4, 2)).isEqualTo(decodedImage)
+            }
         }
     }
 })
