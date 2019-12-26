@@ -16,17 +16,15 @@ fun main() {
     println("-------")
 
     val decodedTopLayer = decode(encodedPassword)
+    val topLayerByPixelWidth = decodedTopLayer.chunked(25)
 
-    // print each element in decodedTopLayer, split at imagePixelWidth
-//    println(decodedTopLayer[0]..decodedTopLayer[24])
-//    println(decodedTopLayer[25]..decodedTopLayer[49])
-//    println(decodedTopLayer[50]..decodedTopLayer[74])
-//    println(decodedTopLayer[75]..decodedTopLayer[99])
-//    println(decodedTopLayer[100]..decodedTopLayer[124])
-//    println(decodedTopLayer[125]..decodedTopLayer[149])
+    for (row in topLayerByPixelWidth) {
+        println(row)
+        // GCPHL
+    }
 }
 
-fun decode(input: String, layerChunkSize: Int = 150, imagePixelWidth: Int = 25): List<Int> {
+fun decode(input: String, layerChunkSize: Int = 150): List<Int> {
     val layersWithIntValues = input.chunked(layerChunkSize).map { listOfIntsFrom(it) }
 
     var layerIndex = 0
