@@ -13,11 +13,35 @@ object OrbitCounterTest : Spek({
             assertThat(orbitCounter(input)).isEqualTo(1)
         }
 
-        it("should return count of 2 total orbits") {
+        it("should return count of 3 total orbits") {
             val input = listOf("A)B", "B)C")
 
-            assertThat(orbitCounter(input)).isEqualTo(2)
+            assertThat(orbitCounter(input)).isEqualTo(3)
         }
+
+        it("should return count of 5 total orbits") {
+            val input = listOf("A)B", "B)C", "B)G")
+
+            assertThat(orbitCounter(input)).isEqualTo(5)
+        }
+
+//        it("should return count of 42 total orbits") {
+//            val input = listOf(
+//                "A)B",
+//                "B)C",
+//                "C)D",
+//                "D)E",
+//                "E)F",
+//                "B)G",
+//                "G)H",
+//                "D)I",
+//                "E)J",
+//                "J)K",
+//                "K)L"
+//            )
+//
+//            assertThat(orbitCounter(input)).isEqualTo(42)
+//        }
     }
 })
 
@@ -31,7 +55,7 @@ This chain can be any number of objects long...
 
 For the following example...
 
-COM)B
+A)B
 B)C
 C)D
 D)E
@@ -46,16 +70,16 @@ K)L
 Visually, the above map of orbits looks like this:
 
         G - H       J - K - L
-       /           /
-COM - B - C - D - E - F
-               \
+      /           /
+A - B - C - D - E - F
+              \
                 I
 
 we can count the total number of orbits as follows...
 
-- D directly orbits C and indirectly orbits B and COM, a total of 3 orbits.
-- L directly orbits K and indirectly orbits J, E, D, C, B, and COM, a total of 7 orbits.
-- COM orbits nothing
+- D directly orbits C and indirectly orbits B and A, a total of 3 orbits.
+- L directly orbits K and indirectly orbits J, E, D, C, B, and A, a total of 7 orbits.
+- A orbits nothing
 
 - The total number of direct and indirect orbits in this example is 42.
 
