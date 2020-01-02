@@ -28,26 +28,26 @@ object OrbitCounterTest : Spek({
         it("should return count of 6 total orbits") {
             val input = listOf("A)B", "B)C", "C)D")
 
-            assertThat(orbitCounter(input)).isEqualTo(5)
+            assertThat(orbitCounter(input)).isEqualTo(6)
         }
 
-//        it("should return count of 42 total orbits") {
-//            val input = listOf(
-//                "A)B",
-//                "B)C",
-//                "C)D",
-//                "D)E",
-//                "E)F",
-//                "B)G",
-//                "G)H",
-//                "D)I",
-//                "E)J",
-//                "J)K",
-//                "K)L"
-//            )
-//
-//            assertThat(orbitCounter(input)).isEqualTo(42)
-//        }
+        it("should return count of 42 total orbits") {
+            val input = listOf(
+                "A)B",
+                "B)C",
+                "C)D",
+                "D)E",
+                "E)F",
+                "B)G",
+                "G)H",
+                "D)I",
+                "E)J",
+                "J)K",
+                "K)L"
+            )
+
+            assertThat(orbitCounter(input)).isEqualTo(42)
+        }
     }
 })
 
